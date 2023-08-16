@@ -1,15 +1,16 @@
-import React,{Component,useEffect,useState} from 'react'
-import Node from './Node/Node.jsx'
+import React,{useEffect,useState} from 'react'
 import './PathfindingVisualizer.css'
+import Grid from '../components/Grid/Grid'
+import Navbar from '../components/Nav_bar/Navbar'
 
 
 export default function PathfindingVisualizer() {
-  
-    const [grid,setGrid] = useState([])
+
+  const [grid,setGrid] = useState([])
     
     const update = () => {
         const grid = []
-        for(let row = 0;row < 15;row++){
+        for(let row = 0;row < 20;row++){
             const currentRow = []
             for(let col = 0;col < 50;col++){
                 currentRow.push([])
@@ -24,17 +25,8 @@ export default function PathfindingVisualizer() {
 
   return (
     <div>
-    foo
-  {grid.map((row, rowIdx) => {
-    return (
-      <div key={rowIdx}>
-        {row.map((node, nodeIdx) => (
-          <Node key={nodeIdx}></Node>
-        ))}
-      </div>
-    );
-  })}
-</div>
-
+        <Navbar></Navbar>
+        <Grid grid={grid}></Grid>
+    </div>
   )
 }

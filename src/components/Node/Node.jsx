@@ -2,11 +2,10 @@ import React from 'react'
 import './Node.css'
 import {Component} from 'react'
 
-export default function Node() {
-    
+export default function Node(props) {
+
   return (
-    <div>
-      
+    <div className='node'>
     </div>
   )
 }
