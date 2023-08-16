@@ -15,7 +15,7 @@ export default function Navbar() {
         <DropDown heading='Algorithum'/>
         <DropDown heading='Maze and Pattern'/>
         <div className='button'>
-        <button className='btn'>Add boom</button>
+        <button className='btn'>Add Boam</button>
         <button className='btn go'>Visualize</button>
         <button className='btn stop'>Clear</button>
         </div>
@@ -24,7 +24,7 @@ export default function Navbar() {
         <FaLessThan className='icon'/><h1>Start</h1>
         <GoGoal className='icon'/><h1>End</h1>
         <BiSolidBomb className='node wall'/><h1>Wall</h1>
-        <BiSolidBomb className='icon'/><h1>Bom</h1>
+        <BiSolidBomb className='icon'/><h1>Boam</h1>
         <BiSolidBomb className='node unvisited'/><h1>Unvisited</h1>
         <BiSolidBomb className='node visited'/><h1>Visited</h1>
         <BiSolidBomb className='node path'/><h1>Shortest Path</h1>

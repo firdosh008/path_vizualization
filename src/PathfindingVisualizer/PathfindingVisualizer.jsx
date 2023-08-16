@@ -2,6 +2,7 @@ import React,{useEffect,useState} from 'react'
 import './PathfindingVisualizer.css'
 import Grid from '../components/Grid/Grid'
 import Navbar from '../components/Nav_bar/Navbar'
+import Footer from '../components/footer/Footer'
 
 
 export default function PathfindingVisualizer() {
@@ -27,6 +28,7 @@ export default function PathfindingVisualizer() {
     <div>
         <Navbar></Navbar>
         <Grid grid={grid}></Grid>
+        <Footer></Footer>
     </div>
   )
 }
