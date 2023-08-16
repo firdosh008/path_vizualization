@@ -3,4 +3,7 @@
     width: 25px;
     display: inline-block;
     border: 1px solid  #2fdf84;
+    margin:2px;
+    padding:10px;
+    border-radius:5px;
 }
