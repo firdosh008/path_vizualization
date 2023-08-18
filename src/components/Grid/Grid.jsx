@@ -6,6 +6,8 @@ import {
   dijkstra,
   getNodesInShortestPathOrder,
 } from "../../Algorithum/Dijkstra.js";
+ import { ToastContainer, toast } from "react-toastify";
+ import "react-toastify/dist/ReactToastify.css";
 
 const START_NODE_ROW = 10;
 const START_NODE_COL = 15;
@@ -16,12 +18,13 @@ const Grid = () => {
   const [grid, setGrid] = useState([]);
   const [mouseIsPressed, setMouseIsPressed] = useState(false);
   const [Algorithm, setAlgorithm, Visualize, setVisualize] = useContext(Context);
-  console.log(Algorithm);
+  // console.log(Algorithm);
 
   useEffect(() => {
     const Initialgrid = getInitialGrid();
     setGrid(Initialgrid);
   }, []);
+
 
   const handleMouseDown = (row, col) => {
     const newGrid = getNewGridWithWallToggled(grid, row, col);
@@ -68,13 +71,21 @@ const Grid = () => {
     const startNode = newgrid[START_NODE_ROW][START_NODE_COL];
     const finishNode = newgrid[FINISH_NODE_ROW][FINISH_NODE_COL];
     const visitedNodesInOrder = dijkstra(newgrid, startNode, finishNode);
-    console.log(visitedNodesInOrder);
+    // console.log(visitedNodesInOrder);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   };
+  
+ const notify = () => toast("Coming Soon!");
+
   if(Visualize){
     if (Algorithm === "Dijkstra") {
       visualizeDijkstra();
+      setVisualize(false);
+    }
+    else{
+      console.log("Coming Soon");
+      notify();
     }
   }
 
@@ -93,15 +104,27 @@ const Grid = () => {
                   isStart={isStart}
                   isWall={isWall}
                   mouseIsPressed={mouseIsPressed}
-                  onMouseDown={(row,col) => handleMouseDown(row, col)}
-                  onMouseEnter={(row,col) => handleMouseEnter(row, col)}
-                  onMouseUp={()=>handleMouseUp()}
+                  onMouseDown={(row, col) => handleMouseDown(row, col)}
+                  onMouseEnter={(row, col) => handleMouseEnter(row, col)}
+                  onMouseUp={() => handleMouseUp()}
                   row={row}
                 />
               );
             })}
           </div>
         ))}
+        <ToastContainer
+          position="top-center"
+          autoClose={1000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
       </div>
     </>
   );
