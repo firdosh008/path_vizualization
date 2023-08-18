@@ -7,14 +7,11 @@ import { Context } from "../components/Contex/Context";
 
 export default function PathfindingVisualizer() {
   const [Algorithm, setAlgorithm] = useState(null);
-  
-  const onSetAlgo = (value) =>{
-    setAlgorithm(value)
-  }
+  const [Visualize, setVisualize] = useState(false);
 
   return (
     <div>
-      <Context.Provider value={[Algorithm, onSetAlgo, setAlgorithm]}>
+      <Context.Provider value={[Algorithm, setAlgorithm,Visualize,setVisualize]}>
         <Navbar></Navbar>
         <Grid></Grid>
         <Footer></Footer>

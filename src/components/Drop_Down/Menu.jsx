@@ -1,12 +1,20 @@
-import React from 'react'
+import React,{ useContext }from 'react'
+import { Context } from '../Contex/Context';
 
-function menu(props) {
+function Menu(props) {
+  const [Algorithm, setAlgorithm, Visualize, setVisualize] = useContext(Context);
   return (
     <div className='dropdown-menu'>
         <ul>
         {   
                props.l.map((item) => {
-                return <li className='iteam'>{item}</li>
+                return (
+                  <li className="item" key={item}>
+                    <button onClick={()=>{setAlgorithm(item); props.setOpen(false)}}>
+                      {item}
+                    </button>
+                  </li>
+                );
             })
         }
         </ul>   
@@ -14,4 +22,4 @@ function menu(props) {
   )
 }
 
-export default menu;
+export default Menu;

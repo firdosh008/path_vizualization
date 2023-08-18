@@ -17,7 +17,7 @@ function DropDown(props) {
             Description.map((iteam) => {
                 if(iteam.heading === props.heading){
                   return (
-                    <Menu title={iteam.titles} l={iteam.l}  />
+                    <Menu title={iteam.titles} l={iteam.l} setOpen={setOpen} />
                 )
                 }
                 else return null;

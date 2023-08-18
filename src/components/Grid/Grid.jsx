@@ -15,8 +15,8 @@ const FINISH_NODE_COL = 35;
 const Grid = () => {
   const [grid, setGrid] = useState([]);
   const [mouseIsPressed, setMouseIsPressed] = useState(false);
-  const [Algorithm, setAlgorithm] = useContext(Context);
-  // console.log(Algorithm);
+  const [Algorithm, setAlgorithm, Visualize, setVisualize] = useContext(Context);
+  console.log(Algorithm);
 
   useEffect(() => {
     const Initialgrid = getInitialGrid();
@@ -72,9 +72,10 @@ const Grid = () => {
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   };
-
-  if (Algorithm === "Dijkstra") {
-    visualizeDijkstra();
+  if(Visualize){
+    if (Algorithm === "Dijkstra") {
+      visualizeDijkstra();
+    }
   }
 
   return (
