@@ -1,34 +1,24 @@
-import React,{useEffect,useState} from 'react'
-import './PathfindingVisualizer.css'
-import Grid from '../components/Grid/Grid'
-import Navbar from '../components/Nav_bar/Navbar'
-import Footer from '../components/footer/Footer'
-
+import React, { useState } from "react";
+import "./PathfindingVisualizer.css";
+import Grid from "../components/Grid/Grid";
+import Navbar from "../components/Nav_bar/Navbar";
+import Footer from "../components/footer/Footer";
+import { Context } from "../components/Contex/Context";
 
 export default function PathfindingVisualizer() {
-
-  const [grid,setGrid] = useState([])
-    
-    const update = () => {
-        const grid = []
-        for(let row = 0;row < 20;row++){
-            const currentRow = []
-            for(let col = 0;col <50;col++){
-                currentRow.push([])
-            }
-            grid.push(currentRow)
-        }
-        setGrid(grid)
-    }
-    useEffect(() => {
-    update()
-    }, [])
+  const [Algorithm, setAlgorithm] = useState(null);
+  
+  const onSetAlgo = (value) =>{
+    setAlgorithm(value)
+  }
 
   return (
     <div>
+      <Context.Provider value={[Algorithm, onSetAlgo, setAlgorithm]}>
         <Navbar></Navbar>
-        <Grid grid={grid}></Grid>
+        <Grid></Grid>
         <Footer></Footer>
+      </Context.Provider>
     </div>
-  )
+  );
 }
