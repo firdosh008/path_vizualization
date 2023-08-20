@@ -1,36 +1,52 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./Navbar.css";
 import logo from "../../assets/logo.png";
 import DropDown from "../Drop_Down/DropDown";
-import { BiSolidBomb } from "react-icons/bi";
-import { FaLessThan, FaWeightHanging } from "react-icons/fa";
+import { BiSolidBomb, BiMap } from "react-icons/bi";
+import {FaWeightHanging } from "react-icons/fa";
 import { GoGoal } from "react-icons/go";
 import { Context } from "../Contex/Context";
 
-export default function Navbar() {
-  const [Algorithm, setAlgorithm, Visualize, setVisualize] = useContext(Context);
+export default function Navbar(props) {
+  const [Algorithm, setAlgorithm, Visualize, setVisualize, clear, setClear,cursor,setCursor] =
+    useContext(Context);
+
+  const changeCursortoWeight = () => {
+    setCursor((prevState) => {
+      if (prevState === "Cursor") {
+        return "weightCursor"
+      }
+      return "Cursor";
+    });
+  };
+  const changeCursortoBomb = () => {
+    setCursor((prevState) => {
+      if (prevState === "Cursor") {
+        return "bombCursor";
+      }
+      return "Cursor";
+    });
+  };
+
   return (
     <div className="navb shadow-xl ">
       <img src={logo} alt="logo" className="img" />
       <DropDown heading="Algorithm" />
       <DropDown heading="Maze & Pattern" />
       <button className="btn">
-        <BiSolidBomb className="icon" />+
+        <BiSolidBomb className="icon" onClick={changeCursortoBomb} />+
       </button>
-      <button className="btn">
+      <button className="btn" onClick={changeCursortoWeight}>
         <FaWeightHanging className="icon" />+
       </button>
       <button className="btn go " onClick={() => setVisualize(true)}>
         Visualize {Algorithm}
       </button>
-      <button
-        className="btn stop"
-        onClick={() => window.location.reload(false)}
-      >
+      <button className="btn stop" onClick={() => setClear(true)}>
         Clear
       </button>
       <div className="symbols">
-        <FaLessThan className="icon" />
+        <BiMap className="icon" />
         <h1>Start</h1>
         <GoGoal className="icon" />
         <h1>End</h1>

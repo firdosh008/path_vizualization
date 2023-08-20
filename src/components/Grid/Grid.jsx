@@ -1,30 +1,46 @@
 import Node from "../Node/Node.jsx";
 import "./Grid.css";
-import { Context } from "../Contex/Context";
+import { Context } from "../Contex/Context.jsx";
 import { useContext, useEffect, useState } from "react";
 import {
   dijkstra,
   getNodesInShortestPathOrder,
-} from "../../Algorithum/Dijkstra.js";
- import { ToastContainer, toast } from "react-toastify";
- import "react-toastify/dist/ReactToastify.css";
+} from "../../Algorithm/Algorithm.js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const START_NODE_ROW = 10;
 const START_NODE_COL = 15;
 const FINISH_NODE_ROW = 10;
 const FINISH_NODE_COL = 35;
+let visitedNodesInOrder=[];
+let nodesInShortestPathOrder=[];
 
-const Grid = () => {
+const Grid = (props) => {
   const [grid, setGrid] = useState([]);
   const [mouseIsPressed, setMouseIsPressed] = useState(false);
-  const [Algorithm, setAlgorithm, Visualize, setVisualize] = useContext(Context);
+  const [Algorithm, setAlgorithm, Visualize, setVisualize, clear, setClear,cursor,setCursor] =useContext(Context);
   // console.log(Algorithm);
+  // console.log(Visualize);
+  // console.log(clear);
 
+  //useEffect to set the grid
   useEffect(() => {
     const Initialgrid = getInitialGrid();
     setGrid(Initialgrid);
   }, []);
 
+  //usEffect to clear the grid
+  useEffect(() => {
+    if (clear) {
+      setGrid(getInitialGrid());
+      clearGrid(visitedNodesInOrder,nodesInShortestPathOrder);
+      setAlgorithm(null)
+      setClear(false);
+    }
+  }, [clear]);
+
+  //mouse events
 
   const handleMouseDown = (row, col) => {
     const newGrid = getNewGridWithWallToggled(grid, row, col);
@@ -42,22 +58,41 @@ const Grid = () => {
     setMouseIsPressed(false);
   };
 
-  const animateDijkstra = (visitedNodesInOrder, nodesInShortestPathOrder) => {
-   for (let i = 1; i < visitedNodesInOrder.length-1; i++) {
-     setTimeout(() => {
-       const node = visitedNodesInOrder[i];
-       const nodeId = `node-${node.row}-${node.col}`;
-       document.getElementById(nodeId).className = "node node-visited";
-     }, 10 * i);
-   }
-   setTimeout(() => {
-    animateShortestPath(nodesInShortestPathOrder);
-   }, 10 * visitedNodesInOrder.length);
-  };
+  //clear the grid
 
+  const clearGrid = (visitedNodesInOrder,nodesInShortestPathOrder) => {
+    for (let i = 0; i < visitedNodesInOrder.length; i++) {
+        const node = visitedNodesInOrder[i];
+        const nodeId = `node-${node.row}-${node.col}`;
+        document.getElementById(nodeId).className = "node";
+      };
+    for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+        const node = nodesInShortestPathOrder[i];
+        const nodeId = `node-${node.row}-${node.col}`;
+        document.getElementById(nodeId).className = "node";
+      };
+    };
+
+
+   //animate the visited nodes and shortest path
+  const animateDijkstra = (visitedNodesInOrder, nodesInShortestPathOrder) => {
+    for (let i = 0; i < visitedNodesInOrder.length ; i++) {
+      setTimeout(() => {
+        const node = visitedNodesInOrder[i];
+        const nodeId = `node-${node.row}-${node.col}`;
+        document.getElementById(nodeId).className = "node node-visited";
+      }, 10 * i);
+    }
+    setTimeout(() => {
+      animateShortestPath(nodesInShortestPathOrder);
+    }, 10 * visitedNodesInOrder.length);
+    if(clear){
+      clearGrid(visitedNodesInOrder,nodesInShortestPathOrder);
+    }
+  };  
 
   const animateShortestPath = (nodesInShortestPathOrder) => {
-    for (let i = 1; i < nodesInShortestPathOrder.length-1; i++) {
+    for (let i = 0; i < nodesInShortestPathOrder.length ; i++) {
       setTimeout(() => {
         const node = nodesInShortestPathOrder[i];
         const nodeId = `node-${node.row}-${node.col}`;
@@ -65,33 +100,33 @@ const Grid = () => {
       }, 50 * i);
     }
   };
-
+ //visualize the algorithm
   const visualizeDijkstra = () => {
-    const newgrid=grid;
+    const newgrid = grid;
     const startNode = newgrid[START_NODE_ROW][START_NODE_COL];
     const finishNode = newgrid[FINISH_NODE_ROW][FINISH_NODE_COL];
-    const visitedNodesInOrder = dijkstra(newgrid, startNode, finishNode);
+    visitedNodesInOrder = dijkstra(newgrid, startNode, finishNode);
     // console.log(visitedNodesInOrder);
-    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+    nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   };
-  
- const notify = () => toast("Coming Soon!");
 
-  if(Visualize){
+  if (Visualize) {
     if (Algorithm === "Dijkstra") {
       visualizeDijkstra();
-      setVisualize(false);
+    } else if(Algorithm !== null) {
+      toast("Coming Soon!");
     }
     else{
-      console.log("Coming Soon");
-      notify();
+      toast("Please Select an Algorithm");
     }
+    setVisualize(false);
   }
+
 
   return (
     <>
-      <div className="grid">
+      <div className="grid" id={cursor}>
         {grid.map((row, rowIdx) => (
           <div className="node_row" key={rowIdx}>
             {row.map((node, nodeIdx) => {
@@ -123,7 +158,7 @@ const Grid = () => {
           pauseOnFocusLoss
           draggable
           pauseOnHover
-          theme="colored"
+          theme="dark"
         />
       </div>
     </>
@@ -165,6 +200,6 @@ const getNewGridWithWallToggled = (grid, row, col) => {
     isWall: !node.isWall,
   };
   newGrid[row][col] = newNode;
-  console.log(newNode);
-  return
-}
+  // console.log(newNode);
+  return newGrid;
+};

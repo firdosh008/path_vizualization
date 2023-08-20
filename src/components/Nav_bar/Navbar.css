@@ -45,8 +45,8 @@ border: 1px solid gray;
 height:5px;
 }
 .visited{
-background-color:#57a4ff;
-border: 1px solid #57a4ff;
+background-color:#40cee3;
+border: 1px solid #40cee3;
 height:5px;
 }
 .unvisited{
@@ -59,4 +59,3 @@ background-color:yellow;
 border: 1px solid yellow;
 height:5px;
 }
-

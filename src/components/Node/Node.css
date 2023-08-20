@@ -7,11 +7,10 @@
   padding: 10px;
   border-radius: 5px;
 }
-.node-start {
-  background-color: #2fdf84;
-}
-.node-end {
-  background-color: red;
+.nodeIcon{
+margin-left: -8px;
+margin-top: -8px;
+font-size: 20px;
 }
 .node-visited {
   animation-name: visitedAnimation;
@@ -78,5 +77,6 @@
   }
 }
 .node-Wall {
-  background-color: gray;
+  background-color:black;
+  border: 1px solid black;
 }

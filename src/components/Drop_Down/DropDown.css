@@ -8,6 +8,7 @@ font-size: 15px;
 font-weight: bold;
 }
 .dropdown-menu{
+    z-index: 10;
     position: absolute;
     background-color: #f9f9f9;
     margin-top:10px;

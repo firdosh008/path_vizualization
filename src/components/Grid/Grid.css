@@ -13,3 +13,9 @@
     height: 100%;
     width: 100%;
 }
+#weightCursor{
+    cursor:url(../../assets/weight.png), auto;
+}
+#bombCursor{
+    cursor:url(../../assets/bomb.png), auto;
+}
