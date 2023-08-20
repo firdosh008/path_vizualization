@@ -41,6 +41,10 @@ const Grid = (props) => {
   }, [clear]);
 
   //mouse events
+  const handleMouseClicked = (row, col) => {
+    const newGrid = getNewGridWithWeight(grid, row, col);
+    setGrid(newGrid);
+  };
 
   const handleMouseDown = (row, col) => {
     const newGrid = getNewGridWithWallToggled(grid, row, col);
@@ -71,6 +75,7 @@ const Grid = (props) => {
         const nodeId = `node-${node.row}-${node.col}`;
         document.getElementById(nodeId).className = "node";
       };
+      setCursor("Cursor");
     };
 
 
@@ -92,13 +97,16 @@ const Grid = (props) => {
   };  
 
   const animateShortestPath = (nodesInShortestPathOrder) => {
+    let distance=0;
     for (let i = 0; i < nodesInShortestPathOrder.length ; i++) {
+      const node = nodesInShortestPathOrder[i];
+      distance += node.weight;
       setTimeout(() => {
-        const node = nodesInShortestPathOrder[i];
         const nodeId = `node-${node.row}-${node.col}`;
         document.getElementById(nodeId).className = "node node-shortest-path";
       }, 50 * i);
     }
+    toast("Total Distance: "+distance+" km");
   };
  //visualize the algorithm
   const visualizeDijkstra = () => {
@@ -130,7 +138,7 @@ const Grid = (props) => {
         {grid.map((row, rowIdx) => (
           <div className="node_row" key={rowIdx}>
             {row.map((node, nodeIdx) => {
-              const { row, col, isFinish, isStart, isWall } = node;
+              const { row, col, isFinish, isStart, isWall,isWeight,weight } = node;
               return (
                 <Node
                   key={nodeIdx}
@@ -138,7 +146,9 @@ const Grid = (props) => {
                   isFinish={isFinish}
                   isStart={isStart}
                   isWall={isWall}
-                  mouseIsPressed={mouseIsPressed}
+                  isWeight={isWeight}
+                  weight={weight}
+                  onMouseClick={(row, col) => handleMouseClicked(row, col)}
                   onMouseDown={(row, col) => handleMouseDown(row, col)}
                   onMouseEnter={(row, col) => handleMouseEnter(row, col)}
                   onMouseUp={() => handleMouseUp()}
@@ -188,6 +198,8 @@ const createNode = (col, row) => {
     distance: Infinity,
     isVisited: false,
     isWall: false,
+    isWeight:false,
+    weight:1,
     previousNode: null,
   };
 };
@@ -201,5 +213,20 @@ const getNewGridWithWallToggled = (grid, row, col) => {
   };
   newGrid[row][col] = newNode;
   // console.log(newNode);
+  return newGrid;
+};
+
+const getNewGridWithWeight = (grid, row, col) => {
+  if(row===START_NODE_ROW && col===START_NODE_COL) return grid;
+  const newGrid = grid.slice();
+  const node = newGrid[row][col];
+  const weight = node.weight;
+  const newNode = {
+    ...node,
+    isWeight:true,
+    weight:weight+1,
+  };
+  newGrid[row][col] = newNode;
+  console.log(newNode);
   return newGrid;
 };

@@ -40,8 +40,8 @@ margin:1px;
 }
 
 .wall{
-background-color:gray;
-border: 1px solid gray;
+background-color:black;
+border: 1px solid black;
 height:5px;
 }
 .visited{

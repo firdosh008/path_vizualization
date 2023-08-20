@@ -80,3 +80,10 @@ font-size: 20px;
   background-color:black;
   border: 1px solid black;
 }
+.weight{
+ color:white;
+ margin-top: -15px;
+ margin-left: -1.4px;
+ text-align: center;
+ font-size: 10px;
+}
