@@ -9,14 +9,13 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 let visitedNodesInOrder = [];
 let nodesInShortestPathOrder = [];
 
 const Grid = () => {
   const [grid, setGrid] = useState([]);
   const [mouseIsPressed, setMouseIsPressed] = useState(false);
-  
+
   const [PRE_START_NODE_ROW, setPre_Start_row] = useState(0);
   const [PRE_START_NODE_COL, setPre_Start_col] = useState(0);
   const [PRE_FINISH_NODE_ROW, setPre_Finish_row] = useState(0);
@@ -43,7 +42,12 @@ const Grid = () => {
 
   //useEffect to set the grid
   useEffect(() => {
-    const Initialgrid = getInitialGrid(START_NODE_ROW,START_NODE_COL,FINISH_NODE_ROW,FINISH_NODE_COL);
+    const Initialgrid = getInitialGrid(
+      START_NODE_ROW,
+      START_NODE_COL,
+      FINISH_NODE_ROW,
+      FINISH_NODE_COL
+    );
     setGrid(Initialgrid);
   }, []);
 
@@ -60,18 +64,36 @@ const Grid = () => {
   //mouse events
   const handleMouseClicked = (row, col) => {
     if (cursor === "weightCursor") {
-      const newGrid = getNewGridWithWeight(grid, row, col,START_NODE_ROW,START_NODE_COL,FINISH_NODE_ROW,FINISH_NODE_COL);
+      const newGrid = getNewGridWithWeight(
+        grid,
+        row,
+        col,
+        START_NODE_ROW,
+        START_NODE_COL,
+        FINISH_NODE_ROW,
+        FINISH_NODE_COL
+      );
       setGrid(newGrid);
-    }
-    else if (cursor === "startCursor") {
-      const newGrid = getNewGridWithNewStart(grid, row, col,PRE_START_NODE_COL,PRE_START_NODE_ROW);
+    } else if (cursor === "startCursor") {
+      const newGrid = getNewGridWithNewStart(
+        grid,
+        row,
+        col,
+        PRE_START_NODE_COL,
+        PRE_START_NODE_ROW
+      );
       setGrid(newGrid);
       setCursor("Cursor");
       setStart_row(row);
       setStart_col(col);
-    }
-    else if (cursor === "endCursor") {
-      const newGrid = getNewGridWithNewFinish(grid, row, col,PRE_FINISH_NODE_COL,PRE_FINISH_NODE_ROW);
+    } else if (cursor === "endCursor") {
+      const newGrid = getNewGridWithNewFinish(
+        grid,
+        row,
+        col,
+        PRE_FINISH_NODE_COL,
+        PRE_FINISH_NODE_ROW
+      );
       setGrid(newGrid);
       setCursor("Cursor");
       setFinish_row(row);
@@ -212,12 +234,26 @@ const Grid = () => {
 
 export default Grid;
 
-const getInitialGrid = (START_NODE_ROW,START_NODE_COL,FINISH_NODE_ROW,FINISH_NODE_COL) => {
+const getInitialGrid = (
+  START_NODE_ROW,
+  START_NODE_COL,
+  FINISH_NODE_ROW,
+  FINISH_NODE_COL
+) => {
   const grid = [];
   for (let row = 0; row < 20; row++) {
     const currentRow = [];
     for (let col = 0; col < 50; col++) {
-      currentRow.push(createNode(col, row,START_NODE_ROW,START_NODE_COL,FINISH_NODE_ROW,FINISH_NODE_COL));
+      currentRow.push(
+        createNode(
+          col,
+          row,
+          START_NODE_ROW,
+          START_NODE_COL,
+          FINISH_NODE_ROW,
+          FINISH_NODE_COL
+        )
+      );
     }
     grid.push(currentRow);
   }
@@ -281,7 +317,13 @@ const getNewGridWithWeight = (
   return newGrid;
 };
 
-const getNewGridWithNewStart = (grid, row, col,PRE_START_NODE_COL,PRE_START_NODE_ROW) => {
+const getNewGridWithNewStart = (
+  grid,
+  row,
+  col,
+  PRE_START_NODE_COL,
+  PRE_START_NODE_ROW
+) => {
   const newGrid = grid.slice();
   const node = newGrid[row][col];
   const PreNode = newGrid[PRE_START_NODE_ROW][PRE_START_NODE_COL];
@@ -299,7 +341,13 @@ const getNewGridWithNewStart = (grid, row, col,PRE_START_NODE_COL,PRE_START_NODE
   return newGrid;
 };
 
-const getNewGridWithNewFinish = (grid, row, col,PRE_FINISH_NODE_COL,PRE_FINISH_NODE_ROW) => {
+const getNewGridWithNewFinish = (
+  grid,
+  row,
+  col,
+  PRE_FINISH_NODE_COL,
+  PRE_FINISH_NODE_ROW
+) => {
   const newGrid = grid.slice();
   const node = newGrid[row][col];
   const PreNode = newGrid[PRE_FINISH_NODE_ROW][PRE_FINISH_NODE_COL];

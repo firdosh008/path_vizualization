@@ -1,14 +1,14 @@
-.footer{
-text-align:center;
+.footer {
+  text-align: center;
 }
-p{
-display:inline-block;
+p {
+  display: inline-block;
 }
-a{
-margin:10px;
-font-size:15px;
-font-weight:bold;
+a {
+  margin: 10px;
+  font-size: 15px;
+  font-weight: bold;
 }
-a:hover{
-color:green;
+a:hover {
+  color: green;
 }

@@ -7,10 +7,10 @@
   padding: 10px;
   border-radius: 5px;
 }
-.nodeIcon{
-margin-left: -8px;
-margin-top: -8px;
-font-size: 20px;
+.nodeIcon {
+  margin-left: -8px;
+  margin-top: -8px;
+  font-size: 20px;
 }
 .node-visited {
   animation-name: visitedAnimation;
@@ -77,19 +77,19 @@ font-size: 20px;
   }
 }
 .node-Wall {
-  background-color:black;
+  background-color: black;
   border: 1px solid black;
 }
-.weight{
- color:white;
- margin-top: -15px;
- margin-left: -1.4px;
- text-align: center;
- font-size: 10px;
+.weight {
+  color: white;
+  margin-top: -15px;
+  margin-left: -1.4px;
+  text-align: center;
+  font-size: 10px;
 }
-#startCursor{
-    cursor:url(../../assets/start.png), auto;
+#startCursor {
+  cursor: url(../../assets/start.png), auto;
 }
-#endCursor{
-    cursor:url(../../assets/goal.png), auto;
+#endCursor {
+  cursor: url(../../assets/goal.png), auto;
 }

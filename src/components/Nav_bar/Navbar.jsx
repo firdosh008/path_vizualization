@@ -1,20 +1,28 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import "./Navbar.css";
 import logo from "../../assets/logo.png";
 import DropDown from "../Drop_Down/DropDown";
 import { BiSolidBomb, BiMap } from "react-icons/bi";
-import {FaWeightHanging } from "react-icons/fa";
+import { FaWeightHanging } from "react-icons/fa";
 import { GoGoal } from "react-icons/go";
 import { Context } from "../Contex/Context";
 
 export default function Navbar(props) {
-  const [Algorithm, setAlgorithm, Visualize, setVisualize, clear, setClear,cursor,setCursor] =
-    useContext(Context);
+  const [
+    Algorithm,
+    setAlgorithm,
+    Visualize,
+    setVisualize,
+    clear,
+    setClear,
+    cursor,
+    setCursor,
+  ] = useContext(Context);
 
   const changeCursortoWeight = () => {
     setCursor((prevState) => {
       if (prevState === "Cursor") {
-        return "weightCursor"
+        return "weightCursor";
       }
       return "Cursor";
     });
