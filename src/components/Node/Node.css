@@ -87,3 +87,9 @@ font-size: 20px;
  text-align: center;
  font-size: 10px;
 }
+#startCursor{
+    cursor:url(../../assets/start.png), auto;
+}
+#endCursor{
+    cursor:url(../../assets/goal.png), auto;
+}

@@ -28,6 +28,10 @@ export default function Node(props) {
     onMouseDown,
     onMouseEnter,
     onMouseUp,
+    setPre_Finish_col,
+    setPre_Finish_row,
+    setPre_Start_col,
+    setPre_Start_row,
   } = props;
 
   let Icon = null;
@@ -46,15 +50,25 @@ export default function Node(props) {
       className={`node ${extraClassName}`}
       id={`node-${row}-${col}`}
       onClick={
-        cursor === "weightCursor" ? () => onMouseClick(row, col) : undefined
+        cursor === "weightCursor"
+          ? () => onMouseClick(row, col)
+          : cursor === "Cursor" && isStart
+          ? () => {setCursor("startCursor"); setPre_Start_row(row); setPre_Start_col(col);}
+          : cursor === "Cursor" && isFinish
+          ? () =>{ setCursor("endCursor"); setPre_Finish_row(row); setPre_Finish_col(col);}
+          : cursor === "startCursor"
+          ? () => onMouseClick(row, col)
+          : cursor === "endCursor"
+          ? () => onMouseClick(row, col)
+          :undefined
       }
       onMouseDown={
-        cursor !== "weightCursor" ? () => onMouseDown(row, col) : undefined
+        cursor === "Cursor" ? () => onMouseDown(row, col) : undefined
       }
       onMouseEnter={
-        cursor !== "weightCursor" ? () => onMouseEnter(row, col) : undefined
+        cursor === "Cursor" ? () => onMouseEnter(row, col) : undefined
       }
-      onMouseUp={cursor !== "weightCursor" ? () => onMouseUp() : undefined}
+      onMouseUp={cursor === "Cursor" ? () => onMouseUp() : undefined}
     >
       {Icon && <Icon className="nodeIcon" />}
       {weight > 1 && isWeight && <h3 className="weight">{weight}</h3>}
