@@ -51,10 +51,24 @@ const Grid = () => {
     setGrid(Initialgrid);
   }, []);
 
+  useEffect(() => {
+    if (Algorithm === "Dijkstra") {
+      clearGrid(visitedNodesInOrder, nodesInShortestPathOrder);
+      visualizeDijkstra();
+    }
+  }, [START_NODE_COL, START_NODE_ROW, FINISH_NODE_COL, FINISH_NODE_ROW]);
+
   //usEffect to clear the grid
   useEffect(() => {
     if (clear) {
-      setGrid(getInitialGrid());
+      setGrid(
+        getInitialGrid(
+          START_NODE_ROW,
+          START_NODE_COL,
+          FINISH_NODE_ROW,
+          FINISH_NODE_COL
+        )
+      );
       clearGrid(visitedNodesInOrder, nodesInShortestPathOrder);
       setAlgorithm(null);
       setClear(false);
@@ -83,7 +97,6 @@ const Grid = () => {
         PRE_START_NODE_ROW
       );
       setGrid(newGrid);
-      setCursor("Cursor");
       setStart_row(row);
       setStart_col(col);
     } else if (cursor === "endCursor") {
@@ -95,21 +108,36 @@ const Grid = () => {
         PRE_FINISH_NODE_ROW
       );
       setGrid(newGrid);
-      setCursor("Cursor");
       setFinish_row(row);
       setFinish_col(col);
     }
   };
 
   const handleMouseDown = (row, col) => {
-    const newGrid = getNewGridWithWallToggled(grid, row, col);
+    const newGrid = getNewGridWithWallToggled(
+      grid,
+      row,
+      col,
+      START_NODE_ROW,
+      START_NODE_COL,
+      FINISH_NODE_ROW,
+      FINISH_NODE_COL
+    );
     setMouseIsPressed(true);
     setGrid(newGrid);
   };
 
   const handleMouseEnter = (row, col) => {
     if (!mouseIsPressed) return;
-    const newGrid = getNewGridWithWallToggled(grid, row, col);
+    const newGrid = getNewGridWithWallToggled(
+      grid,
+      row,
+      col,
+      START_NODE_ROW,
+      START_NODE_COL,
+      FINISH_NODE_ROW,
+      FINISH_NODE_COL
+    );
     setGrid(newGrid);
   };
 
@@ -122,13 +150,17 @@ const Grid = () => {
   const clearGrid = (visitedNodesInOrder, nodesInShortestPathOrder) => {
     for (let i = 0; i < visitedNodesInOrder.length; i++) {
       const node = visitedNodesInOrder[i];
-      const nodeId = `node-${node.row}-${node.col}`;
-      document.getElementById(nodeId).className = "node";
+      if (!node.isWall) {
+        const nodeId = `node-${node.row}-${node.col}`;
+        document.getElementById(nodeId).className = "node";
+      }
     }
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       const node = nodesInShortestPathOrder[i];
-      const nodeId = `node-${node.row}-${node.col}`;
-      document.getElementById(nodeId).className = "node";
+      if (!node.isWall) {
+        const nodeId = `node-${node.row}-${node.col}`;
+        document.getElementById(nodeId).className = "node";
+      }
     }
     setCursor("Cursor");
   };
@@ -168,13 +200,14 @@ const Grid = () => {
     const startNode = newgrid[START_NODE_ROW][START_NODE_COL];
     const finishNode = newgrid[FINISH_NODE_ROW][FINISH_NODE_COL];
     visitedNodesInOrder = dijkstra(newgrid, startNode, finishNode);
-    //console.log(visitedNodesInOrder);
     nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+    // console.log(nodesInShortestPathOrder);
     animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   };
 
   if (Visualize) {
     if (Algorithm === "Dijkstra") {
+      clearGrid(visitedNodesInOrder, nodesInShortestPathOrder);
       visualizeDijkstra();
     } else if (Algorithm !== null) {
       toast("Coming Soon!");
@@ -282,7 +315,18 @@ const createNode = (
   };
 };
 
-const getNewGridWithWallToggled = (grid, row, col) => {
+const getNewGridWithWallToggled = (
+  grid,
+  row,
+  col,
+  START_NODE_ROW,
+  START_NODE_COL,
+  FINISH_NODE_ROW,
+  FINISH_NODE_COL
+) => {
+  if (row === START_NODE_ROW && col === START_NODE_COL) return grid;
+  if (row === FINISH_NODE_ROW && col === FINISH_NODE_COL) return grid;
+
   const newGrid = grid.slice();
   const node = newGrid[row][col];
   const newNode = {
@@ -290,7 +334,7 @@ const getNewGridWithWallToggled = (grid, row, col) => {
     isWall: !node.isWall,
   };
   newGrid[row][col] = newNode;
-  // console.log(newNode);
+  console.log(newNode);
   return newGrid;
 };
 
@@ -324,6 +368,7 @@ const getNewGridWithNewStart = (
   PRE_START_NODE_COL,
   PRE_START_NODE_ROW
 ) => {
+  if (row === PRE_START_NODE_ROW && col === PRE_START_NODE_COL) return grid;
   const newGrid = grid.slice();
   const node = newGrid[row][col];
   const PreNode = newGrid[PRE_START_NODE_ROW][PRE_START_NODE_COL];
@@ -348,6 +393,7 @@ const getNewGridWithNewFinish = (
   PRE_FINISH_NODE_COL,
   PRE_FINISH_NODE_ROW
 ) => {
+  if (row === PRE_FINISH_NODE_ROW && col === PRE_FINISH_NODE_COL) return grid;
   const newGrid = grid.slice();
   const node = newGrid[row][col];
   const PreNode = newGrid[PRE_FINISH_NODE_ROW][PRE_FINISH_NODE_COL];

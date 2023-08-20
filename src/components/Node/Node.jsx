@@ -57,6 +57,7 @@ export default function Node(props) {
               setCursor("startCursor");
               setPre_Start_row(row);
               setPre_Start_col(col);
+
             }
           : cursor === "Cursor" && isFinish
           ? () => {
@@ -64,10 +65,8 @@ export default function Node(props) {
               setPre_Finish_row(row);
               setPre_Finish_col(col);
             }
-          : cursor === "startCursor"
-          ? () => onMouseClick(row, col)
-          : cursor === "endCursor"
-          ? () => onMouseClick(row, col)
+          : cursor === "startCursor" || cursor === "endCursor"
+          ? () => {onMouseClick(row, col);setCursor("Cursor");}
           : undefined
       }
       onMouseDown={

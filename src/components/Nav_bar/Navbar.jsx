@@ -61,7 +61,7 @@ export default function Navbar(props) {
         <BiSolidBomb className="node wall" />
         <h1>Wall</h1>
         <BiSolidBomb className="icon" />
-        <h1>Boam</h1>
+        <h1>Bomb</h1>
         <FaWeightHanging className="icon" />
         <h1>Weight</h1>
         <BiSolidBomb className="node unvisited" />
