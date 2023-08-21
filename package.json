@@ -1,6 +1,7 @@
 {
   "name": "path_vizualization",
   "version": "0.1.0",
+  "homepage": "https://firdosh008.github.io/path_vizualization/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
