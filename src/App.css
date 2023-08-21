@@ -32,3 +32,14 @@
     transform: rotate(360deg);
   }
 }
+.mobileContent{
+  background-color: black;
+  color: white;
+  width: 100%;
+}
+.mobileContent h1{
+  margin:8rem;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 1000;
+}

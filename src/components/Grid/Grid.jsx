@@ -207,7 +207,7 @@ const Grid = () => {
 
   if (Visualize) {
     if (Algorithm === "Dijkstra") {
-      clearGrid(visitedNodesInOrder, nodesInShortestPathOrder);
+      // clearGrid(visitedNodesInOrder, nodesInShortestPathOrder);
       visualizeDijkstra();
     } else if (Algorithm !== null) {
       toast("Coming Soon!");
