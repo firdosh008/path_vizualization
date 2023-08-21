@@ -40,11 +40,11 @@ export default function Navbar(props) {
     <div className="navb shadow-xl ">
       <img src={logo} alt="logo" className="img" />
       <DropDown heading="Algorithm" />
-      <DropDown heading="Maze & Pattern" />
-      <button className="btn">
-        <BiSolidBomb className="icon" onClick={changeCursortoBomb} />+
-      </button>
-      <button className="btn" onClick={changeCursortoWeight}>
+      {/* <DropDown heading="Maze & Pattern" /> */}
+      {/* <button className="btn">
+        <BiSolidBomb className="icon bombIcon" onClick={changeCursortoBomb} />+
+      </button> */}
+      <button className="btn weightIcon" onClick={changeCursortoWeight}>
         <FaWeightHanging className="icon" />+
       </button>
       <button className="btn go " onClick={() => setVisualize(true)}>
@@ -60,8 +60,8 @@ export default function Navbar(props) {
         <h1>End</h1>
         <BiSolidBomb className="node wall" />
         <h1>Wall</h1>
-        <BiSolidBomb className="icon" />
-        <h1>Bomb</h1>
+        {/* <BiSolidBomb className="icon" />
+        <h1>Bomb</h1> */}
         <FaWeightHanging className="icon" />
         <h1>Weight</h1>
         <BiSolidBomb className="node unvisited" />

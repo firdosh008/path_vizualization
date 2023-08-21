@@ -7,7 +7,7 @@ import { MdOutlineArrowDropDownCircle } from "react-icons/md";
 function DropDown(props) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="dropdown">
+    <div className={`dropdown ${props.heading}`}>
       <button className="dropdown-btn" onClick={() => setOpen(!open)}>
         {props.heading}
         <MdOutlineArrowDropDownCircle className="icon" />

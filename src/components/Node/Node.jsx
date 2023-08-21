@@ -36,9 +36,9 @@ export default function Node(props) {
 
   let Icon = null;
   const extraClassName = isStart
-    ? (Icon = BiMap)
+    ? (Icon = BiMap) && "node-Start"
     : isFinish
-    ? (Icon = GoGoal)
+    ? (Icon = GoGoal) && "node-Finish"
     : isWall
     ? "node-Wall"
     : isWeight
@@ -77,7 +77,7 @@ export default function Node(props) {
       }
       onMouseUp={cursor === "Cursor" ? () => onMouseUp() : undefined}
     >
-      {Icon && <Icon className="nodeIcon" />}
+      {Icon && <Icon className={`nodeIcon`} />}
       {weight > 1 && isWeight && <h3 className="weight">{weight}</h3>}
     </div>
   );
