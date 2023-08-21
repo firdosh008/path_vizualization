@@ -40,7 +40,7 @@ export default function Navbar(props) {
     <div className="navb shadow-xl ">
       <img src={logo} alt="logo" className="img" />
       <DropDown heading="Algorithm" />
-      {/* <DropDown heading="Maze & Pattern" /> */}
+      <DropDown heading="Maze & Pattern" />
       {/* <button className="btn">
         <BiSolidBomb className="icon bombIcon" onClick={changeCursortoBomb} />+
       </button> */}
